@@ -1,0 +1,17 @@
+The HOW and WHY...
+	Electron
+	Vue (React && Office Fabric)
+	Firebase (Pusher)
+
+Basic Assumptions {What you should know}
+	(Basic Text Editor || IDE)
+	Node.js and npm 
+	HTML/CSS/JAVASCRIPT
+	Vue && Vuex (React && Redux)
+	
+1,000 foot view of Electron
+
+
+Features of our app and how it relates to electron
+	
+	

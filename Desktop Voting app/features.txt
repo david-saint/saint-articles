@@ -1,0 +1,13 @@
+Welcome screen
+	login
+	register
+
+Voting screen
+	vote for diferent posts
+
+Monitor screen
+	Realtime monitor of the vote
+
+Super Admin
+	Add Politicians
+	Add valid users

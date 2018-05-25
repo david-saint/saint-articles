@@ -1,0 +1,8 @@
+Booking -
+	Paying for bookings
+	different moving parts
+	combination / reccomendation id
+	e-ticket vs booking only
+
+
+What payment type should I use if I plan on adding a commission to each flight

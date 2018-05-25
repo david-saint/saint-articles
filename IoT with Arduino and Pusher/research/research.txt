@@ -1,0 +1,73 @@
+Download Arduino IDE
+https://www.arduino.cc/en/Main/Software
+
+Install the Board definition [depending on the board you are using | I am using MKR1000]
+	Tools | Boards | Boards Manger 
+	Then search for your board..
+	Install it then select it in the Tools | Boards
+
+Get a shield for the arduino board. 
+A shield is basically an extension board that can be placed on top of the Arduino board
+There are many types of shields:
+	1. Ethernet Shield.
+	2. Wifi Shield.
+	3. 3G or LTE Shields.
+The MKR1000 board comes with a built in Wifi chip.
+
+In order to use the wifi chip on the arduino board we have to install a library.
+Go to Sketch | Include Library | Manage Libraries  then search for and install wifi101
+
+To test you can open Files | Examples | WiFi | ConnectWithWpa
+
+
+
+GRABBING CONTENT FROM THE CLOUD
+There are 6 steps to achieve this..
+	1. Specify the the webpage 
+		char server[] = "www.example.com"
+	2. Create an instance of WiFI client
+		WiFiClient client;
+	3. In the setup() function we connect to the server and make a request
+		if(client.connect(server, 80)){
+			Serial.println("connected to the server");
+			//Then we make a request
+			client.println("GET / HTTP/1.1");
+			client.println("Host: www.example.com");
+			client.println("Connection: close");
+			client.println();
+		}
+	4. Inside the loop() function we read the data coming back from the server
+		while(client.available()) {
+			char c = client.read();
+			Serial.write(c);
+		}
+	5. We then stop the connection		
+		if(!client.connected()){
+			Serial.println();
+			Serial.println("disconnected from the server.");
+			client.stop();
+			while(true);
+		}
+
+SENDING DATA TO THE CLOUD 
+
+
+// Close existing connection
+client.stop();
+// Connect & send request
+if (client.connect(server, 80)) {
+Serial.println("connecting...");
+// Send the HTTP PUT request:
+client.println("GET /dweet/for/myarduino?light=" +
+String(sensorData) + " HTTP/1.1");
+client.println("Host: dweet.io");
+client.println("User-Agent: ArduinoWiFi/1.1");
+client.println("Connection: close");
+client.println();
+// Note the time that the connection was made:
+lastConnectionTime = millis();
+}
+else {
+// if you couldn't make a connection:
+Serial.println("connection failed");
+}

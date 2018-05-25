@@ -1,0 +1,23 @@
+The First step to solving an algorithm is to determine the type of problem you are dealing with
+
+Three desirable properties of a good algorithm.
+	- correct
+	- efficient
+	- easy to implement
+
+A proper mathematical proof consists of several parts. First, there is a clear,
+precise statement of what you are trying to prove. Second, there is a set of assumptions
+of things which are taken to be true and hence used as part of the proof.
+Third, there is a chain of reasoning which takes you from these assumptions to the
+statement you are trying to prove
+
+If your idea is not clearly revealed when you express an algorithm, then you are using too
+low-level a notation to describe it
+
+Problem specifications have two parts: 
+	(1) the set of allowed input instances, and 
+	(2) the required properties of the algorithm’s output
+
+Good counter-examples have two important properties:
+	- verifiability
+	- simplicity

@@ -1,0 +1,15 @@
+{
+  "name": "tailwind-css",
+  "version": "1.0.0",
+  "description": "A basic project to practice tailwind-css",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "webpack -d --watch",
+    "dev": "webpack-dev-server"
+  },
+  "author": "David Saint",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^0.5.2"
+  }
+}

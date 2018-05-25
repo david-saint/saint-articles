@@ -1,0 +1,178 @@
+First things first 
+	install webpack globally [npm install -g webpack]
+	create a webpack.config.js in the root directory [module.exports = {}]
+	specify the entry and output [
+	module.exports = {
+		entry: './src/index.js',
+		output: {
+			path: 'dist',
+			filename: 'app.bundle.js'
+		}
+	}
+	]
+	In your package.json add a script dev [
+	"dev": "webpack -d --watch"
+	]
+
+Optional Webpack Html plugin
+	install [npm install html-webpack-plugin --save-dev]
+	import into your webpack.config [
+
+	const HtmlWebpackPlugin = require('html-webpack-plugin');
+	----
+	plugins: [new HtmlWebpackPlugin(
+		title: '',
+		hash: true,
+		filename: './../index.html', // U use this to save in what directory u want default = dist
+		template: './src/index.ejs'
+	)]
+	]
+
+Style Loader
+	install css-loader [
+	npm install style-loader css-loader extract-text-webpack-plugin --save-dev
+	]
+	to extract css in new file [
+		const ExtractTextPlugin = require();
+	]
+	add to webpack.config [
+	module: {
+		rules: [
+			{
+				test: /\.css$/,
+				use: new ExtractTextPlugin({
+					fallbackLoader: 'style-loader',
+					loader: ['css-loader', 'style-loader'],
+					publicPath: '/dist'
+				})
+			}
+		]
+	}
+	plugins: [
+		new ExtractTextPlugin({
+			filename: 'bundle.css',
+			disable: false,
+			allChunks: true
+		})
+	]
+	]
+
+	-----------Optional
+	install sass loader [
+	npm install sass-loader node-sass -save-dev
+	]
+	add test /\.scss$/ and use [sass-loader] to webpack.config
+
+Webpack Dev Server 
+	install webpack-dev-server [npm install webpack-dev-server --save-dev]
+	change the output paths [
+	const path = require('path');
+	......
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'app.bundle.js'
+	}
+	]
+	change the scripts in the package.json [
+	"dev": "webpack-dev-server"
+	]
+	---------Optional
+	configure devServer
+	add to webpack.config [
+	devServer: {
+		contentBase: path.join(__dirname, "dist"),
+		compress: true, // compress files
+		port: 3000, // port
+		stats: "minimal", //how the terminal would look
+		open: true //this opens a new window
+	}
+	]
+	--------Optional 
+	To enable Hot Module replacement
+	add this to the devServer block in webpack.config [
+	hot: true,
+	]
+	include this in the webpack.config [
+	const webpack = require('webpack');
+	......
+	plugins: [
+		....
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NamedModulesPlugin()
+	]
+	If using this you can't use ExtractTextPlugin
+	----------Optional
+	To enable ExtractTextPlugin only in production mode
+	add these variables [
+	const isProd = process.env.NODE_ENV === 'production';
+	const cssDev = ['style-loader', 'css-loader', 'sass-loader'];
+	const cssProd = ExtractTextPlugin.extract({//place config here});
+	const cssConfig = isprod ? cssProd : cssDev;
+	]
+	then to the rules test for css/scss [ use: cssConfig ]
+	and in the plugins array [ new ExtractTextPlugin({
+		...
+		disable: !isProd,
+	})
+	]
+	]
+
+Babel + React
+	instead of using npm install -g create-react-app
+	install dependencies [npm install --save-dev babel-loader babel-core]
+	add a rule to the rules array in the webpack.config [
+	{
+		test: /\.js$/,
+		exclude: /node_modules/,
+		use: 'babel-loader'
+	}
+	]
+	create a .babelrc file and add [
+	{ "presets": ["es2015", "react"] }
+	]
+
+Clean production directory before running production 
+	install rimraf [npm install --save-dev rimraf]
+	add script to package.json [
+	"prod": "clean && webpack -p",
+	"clean": "rimraf ./dist/*"
+	]
+
+File and Image Loaders
+	install packages [npm install file-loader --save-dev]
+	add to rules [
+	{
+		test: /\.(jpe?g|png|gif|svg)$/i,
+		use: 'file-loader?name=[path]/[name].[ext]}
+	]
+
+Add Bootstrap
+	install bootstrap-loader [npm install bootstrap-loader url-loader resolve-url-loader --save-dev]
+	install bootstrap [npm install bootstrap-sass --save-dev]
+	create .bootstraprc and configure default to liking (Go to bootstrap loader github).
+	create webpack.bootstrap.config and paste.
+	in webpack.config add [ const bootstrapEntryPoints = require('./webpack.bootstrap.config');
+	then [
+	const bootstrapConfig = isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoints.dev;
+	entry: {
+		app: './src/index.js',
+		bootstrap: bootstrapConfig
+	}
+	add the rules for fonts (check github).
+	import jQuery
+	
+	]
+	----------Optional
+	Optimize css
+	install purifycss-webpack [npm install purifycss-webpack --save-dev]
+	include to webpack.config [
+	const glob = require('glob')
+	const PurifyCSSPlugin = require('purifycss-webpack');=
+	...
+	plugins: [
+		...
+		new PurifyCSSPlugin({
+			paths: glob.sync(path.join(__dirname, 'src/*.html'),
+		})
+	]
+	]

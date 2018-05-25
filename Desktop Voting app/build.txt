@@ -1,0 +1,12 @@
+Electron screen/app setup
+	Edit the index.js in src/main
+		import screen from 'electron'
+		create a constant "size" that is equal to the screen.getPrimaryDisplay().size
+		add height: (size.height - 10),	
+		    width: (size.width -10),
+		    backgroundColor: '#1b1c2b',
+		    frame: false,
+		to the mainWindow options
+
+Fit HTML into the app
+	edit the index.ejs in src to add the useful links to static files we need
